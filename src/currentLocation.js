@@ -1,6 +1,7 @@
 import React from 'react';
 import Clock from 'react-live-clock';
 import ReactAnimatedWeather from 'react-animated-weather';
+import apiKeys from './apiKeys';
 
 const dateBuilder = (d) => {
     let months = [
@@ -57,7 +58,7 @@ class Weather extends React.Component {
         if (navigator.geolocation) {
             this.getPosition() 
                .then((position) => {
-                
+                this.getWeather()
                })
         }
     }
@@ -72,7 +73,20 @@ class Weather extends React.Component {
         });
     };
 
-    get
+    getWeather = async (lat, lon) => {
+        const api_call = await fetch(`${apiKeys.base}weather?lat=${lat}&lon=${lon}&units=metric&APPID=${apiKeys.key}`);
+        const data = await api_call.json();
+        this.setState({
+            lat: lat,
+            lon: lon,
+            city: data.name,
+            temperatureC: Math.round(data.main.temp),
+            temperatureF: Math.round(data.main.temp * 1.8 + 32),
+            humidity: data.main.humidity,
+            main: data.weather[0].main,
+            country: data.sys.country,
+        })
+    }
 }
 
 export default Weather;
