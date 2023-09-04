@@ -85,7 +85,42 @@ class Weather extends React.Component {
             humidity: data.main.humidity,
             main: data.weather[0].main,
             country: data.sys.country,
-        })
+        });
+        switch (this.state.main) {
+            case "Haze":
+                this.setState({ icon: "CLEAR_DAY" });
+                break;
+            case "Clouds":
+                this.setState({ icon: "CLOUDY" });
+                break;
+            case "Rain":
+                this.setState({ icon: "RAIN" });
+                break;
+            case "Snow":
+                this.setState({ icon: "SNOW" });
+                break;
+            case "Dust":
+                this.setState({ icon: "WIND" });
+                break;
+            case "Drizzle":
+                this.setState({ icon: "SLEET" });
+                break;
+            case "Fog":
+                this.setState({ icon: "FOG" });
+                break;
+            case "Smoke":
+                this.setState({ icon: "FOG" });
+                break;
+            case "Tornado":
+                this.setState({ icon: "WIND" });
+                break;
+            default:
+                this.setState({ icon: "CLEAR_DAY" });
+        }
+    };
+
+    render() {
+        
     }
 }
 
